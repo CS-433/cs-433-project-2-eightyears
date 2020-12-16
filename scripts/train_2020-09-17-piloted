@@ -1,0 +1,40 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=10:0:0
+#SBATCH --qos=gpu
+#SBATCH --gres=gpu:1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --partition=gpu
+#SBATCH --account=master
+
+echo START BY $USER AT `date`
+
+# Activate Virtual Environment and Load Modules for GPUs
+nvidia-smi
+module purge
+module load gcc cuda cudnn python/2.7 mvapich2
+source /home/$USER/venvs/atloc/bin/activate
+
+# Temporary Directory
+TEMP=$TMPDIR
+TEMP+="/AtLoc-master"
+
+# Recreate the Hierarchy in Fast Temporary Directory
+mkdir $TEMP
+cp -r /home/$USER/cs433-atloc4topo/AtLoc-master/* $TEMP
+
+# Skip unzipping and moving datasets since they are already copied to the right places
+# AtLoc-master/data/
+# └── EPFL
+#     ├── 2020-09-17-piloted (with data from /work/topo/VNAV/Real_Data/EPFL/pilotedflights/EPFL_2020-09-17-piloted/)
+#     └── 2020-09-17-piloted_synthetic (with unzipped data from /work/topo/VNAV/Synthetic_Data/EPFL/matching/pilotedflights/EPFL_2020-09-17-piloted.zip)
+
+# Run Code: Create Dataset Mean Stats and Train Epochs
+srun python $TEMP/run.py --dataset EPFL --scene 2020-09-17-piloted --model AtLoc --data_dir $TEMP/data --logdir /home/$USER/cs433-atloc4topo/AtLoc-master/logs
+wait
+srun python $TEMP/train.py --dataset EPFL --scene 2020-09-17-piloted --model AtLoc --gpus 0 --data_dir $TEMP/data --logdir /home/$USER/cs433-atloc4topo/AtLoc-master/logs
+wait
+
+echo END OF $SLURM_JOB_ID AT `date`

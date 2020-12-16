@@ -1,0 +1,62 @@
+#!/bin/bash -l
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=10:0:0
+#SBATCH --qos=gpu
+#SBATCH --gres=gpu:1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --partition=gpu
+#SBATCH --account=master
+
+echo START BY $USER AT `date`
+
+# Activate Virtual Environment and Load Modules for GPUs
+nvidia-smi
+module purge
+module load gcc cuda cudnn python/2.7 mvapich2
+source /home/$USER/venvs/atloc/bin/activate
+
+# Temporary Directory
+TEMP=$TMPDIR
+TEMP+="/AtLoc-master"
+
+# Recreate the Hierarchy in Fast Temporary Directory
+mkdir $TEMP
+cp -r ~/cs433-atloc4topo/AtLoc-master/* $TEMP
+mkdir -p $TEMP/data/Topo
+
+# Unzip the Dataset
+for archive in $(find /work/topo/VNAV/Synthetic_Data/comballaz/comballaz_archive/comballaz-v1-archive)
+do
+   mkdir -p $TEMP/data/Topo/"${archive:41:-4}"
+   unzip $archive -d $TEMP/data/Topo/${archive:41:-4}
+done
+
+# Move the Dataset to the loop directory in data/Topo
+mkdir -p $TEMP/data/Topo/loop
+cp -r $TEMP/data/Topo/comballaz_archive/comballaz-v1-archive/* $TEMP/data/Topo/loop
+rm -r $TEMP/data/Topo/com*
+
+# Remove Unnecessary Subdirectories
+for folder in $(find $TEMP/data/Topo/loop -maxdepth 1 -name *comballaz*)
+do
+   cp -r $folder/home/qiyan/Downloads/* "$folder" 2>/dev/null || :
+   rm -r -f $folder/home
+done
+rm -rf $TEMP/data/Topo/loop/Readm
+rm -rf $TEMP/data/Topo/loop/lhs-point-whole
+rm -rf $TEMP/data/Topo/loop/comballaz-v1
+
+# Run Code: Create Dataset Mean Stats and Train Epochs
+srun python $TEMP/run.py --dataset Topo --model AtLoc --data_dir $TEMP/data --logdir $TEMP/logs
+wait
+srun python $TEMP/train.py --dataset Topo --model AtLoc --gpus 0 --data_dir $TEMP/data --logdir $TEMP/logs
+wait
+
+# WIP: Copy Results to Home Directory to Keep Them
+# (should now be merged into the actual cs433-atloc4topo directory)
+mkdir -p /home/$USER/cs433-atloc4topo/AtLoc-master/logs/Topo_loop_AtLoc_False
+cp -r $TEMP/logs/Topo_loop_AtLoc_False/* /home/$USER/cs433-atloc4topo/AtLoc-master/logs/Topo_loop_AtLoc_False
+
+echo END OF $SLURM_JOB_ID AT `date`

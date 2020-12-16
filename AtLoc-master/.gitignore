@@ -1,0 +1,13 @@
+.idea/*
+*.pyc
+.DS_Store
+data/7Scenes/*
+data/robotcar_sdk
+robotcar-dataset-sdk
+data/RobotCar/*
+data/robotcar_camera_models
+data/robotcar_symlinks.sh
+data/Topo/*
+logs/*
+
+

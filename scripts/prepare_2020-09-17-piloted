@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Create New Directories for Real and Synthetic Counterparts
+mkdir /home/$USER/cs433-atloc4topo/AtLoc-master/data/EPFL
+mkdir /home/$USER/cs433-atloc4topo/AtLoc-master/data/EPFL/2020-09-17-piloted
+mkdir /home/$USER/cs433-atloc4topo/AtLoc-master/data/EPFL/2020-09-17-piloted_synthetic
+
+# Copy Real Images
+cp -r /work/topo/VNAV/Real_Data/EPFL/pilotedflights/EPFL_2020-09-17-piloted/* /home/$USER/cs433-atloc4topo/AtLoc-master/data/EPFL/2020-09-17-piloted
+
+# Unzip and Synthetic Images
+unzip /work/topo/VNAV/Synthetic_Data/EPFL/matching/pilotedflights/EPFL_2020-09-17-piloted.zip -d /home/$USER/cs433-atloc4topo/AtLoc-master/data/EPFL/2020-09-17-piloted_synthetic
+

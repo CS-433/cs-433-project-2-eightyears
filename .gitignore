@@ -1,0 +1,14 @@
+AtLoc-master/.idea/*
+*.pyc
+*.DS_Store
+AtLoc-master/data/7Scenes/*
+AtLoc-master/data/robotcar_sdk
+AtLoc-master/robotcar-dataset-sdk
+AtLoc-master/data/RobotCar/*
+AtLoc-master/data/robotcar_camera_models
+AtLoc-master/data/robotcar_symlinks.sh
+AtLoc-master/data/comballaz/*
+AtLoc-master/data/epfl/*
+AtLoc-master/logs/*
+*slurm*.out
+
