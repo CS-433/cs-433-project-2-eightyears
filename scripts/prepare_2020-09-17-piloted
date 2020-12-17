@@ -7,6 +7,7 @@ mkdir /home/$USER/cs433-atloc4topo/AtLoc-master/data/EPFL/2020-09-17-piloted_syn
 
 # Copy Real Images
 cp -r /work/topo/VNAV/Real_Data/EPFL/pilotedflights/EPFL_2020-09-17-piloted/* /home/$USER/cs433-atloc4topo/AtLoc-master/data/EPFL/2020-09-17-piloted
+cp /work/topo/VNAV/Real_Data/EPFL/pilotedflights/EPFL_2020-09-17-piloted/raw/out_piloted.csv /home/$USER/cs433-atloc4topo/AtLoc-master/data/EPFL/2020-09-17-piloted/img_meta.csv
 
 # Unzip and Synthetic Images
 unzip /work/topo/VNAV/Synthetic_Data/EPFL/matching/pilotedflights/EPFL_2020-09-17-piloted.zip -d /home/$USER/cs433-atloc4topo/AtLoc-master/data/EPFL/2020-09-17-piloted_synthetic

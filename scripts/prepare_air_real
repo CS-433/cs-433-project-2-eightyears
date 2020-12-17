@@ -1,0 +1,16 @@
+#!/bin/bash
+# TODO: Not Tested
+
+# Create New Directories for Real and Synthetic Counterparts
+mkdir /home/$USER/cs433-atloc4topo/AtLoc-master/data/comballaz
+mkdir /home/$USER/cs433-atloc4topo/AtLoc-master/data/comballaz/air
+mkdir /home/$USER/cs433-atloc4topo/AtLoc-master/data/comballaz/air_synthetic
+
+# Copy Real Images
+cp -r /work/topo/VNAV/Real_Data/comballaz/dji-air2/* /home/$USER/cs433-atloc4topo/AtLoc-master/data/comballaz/air
+
+# Unzip and Move Synthetic Images
+unzip /work/topo/VNAV/Synthetic_Data/comballaz/comballaz-air2.zip -d /home/$USER/cs433-atloc4topo/AtLoc-master/data/comballaz/air_synthetic
+cp -r /home/$USER/cs433-atloc4topo/AtLoc-master/data/comballaz/air_synthetic/comballaz-air2/comballaz-air2_poses.npy /home/$USER/cs433-atloc4topo/AtLoc-master/data/comballaz/air_synthetic
+rm -r /home/$USER/cs433-atloc4topo/AtLoc-master/data/comballaz/air_synthetic/comballaz-air2
+

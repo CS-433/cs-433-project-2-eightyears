@@ -171,7 +171,7 @@ for batch_idx, (data, target) in enumerate(loader):
         grayscale2 = cv2.cvtColor(img2.astype('float32'), cv2.COLOR_RGB2GRAY)
         grayscale3 = cv2.subtract(grayscale1,grayscale2)
         img3 = cv2.cvtColor(grayscale3, cv2.COLOR_GRAY2RGB)
-        img3 = (img3 - np.mean(img3, axis=(0, 1))) / np.std(img3, axis=(0, 1))
+        img3 = (img3 - np.mean(img3, axis=(0, 1))) // np.std(img3, axis=(0, 1))
         #img3 = ((img3 - img3.min()) / (img3.max() - img3.min())) * 255
         original,_ = data_set2[batch_idx]
 

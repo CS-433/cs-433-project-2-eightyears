@@ -49,14 +49,14 @@ rm -rf $TEMP/data/Topo/loop/lhs-point-whole
 rm -rf $TEMP/data/Topo/loop/comballaz-v1
 
 # Run Code: Create Dataset Mean Stats and Train Epochs
-srun python $TEMP/run.py --dataset Topo --model AtLoc --data_dir $TEMP/data --logdir $TEMP/logs
+srun python $TEMP/run.py --dataset Topo --model AtLoc --data_dir $TEMP/data --logdir /home/$USER/cs433-atloc4topo/AtLoc-master/logs
 wait
-srun python $TEMP/train.py --dataset Topo --model AtLoc --gpus 0 --data_dir $TEMP/data --logdir $TEMP/logs
+srun python $TEMP/train.py --dataset Topo --model AtLoc --gpus 0 --data_dir $TEMP/data --logdir /home/$USER/cs433-atloc4topo/AtLoc-master/logs
 wait
 
 # WIP: Copy Results to Home Directory to Keep Them
 # (should now be merged into the actual cs433-atloc4topo directory)
-mkdir -p /home/$USER/cs433-atloc4topo/AtLoc-master/logs/Topo_loop_AtLoc_False
-cp -r $TEMP/logs/Topo_loop_AtLoc_False/* /home/$USER/cs433-atloc4topo/AtLoc-master/logs/Topo_loop_AtLoc_False
+#mkdir -p /home/$USER/cs433-atloc4topo/AtLoc-master/logs/Topo_loop_AtLoc_False
+#cp -r $TEMP/logs/Topo_loop_AtLoc_False/* /home/$USER/cs433-atloc4topo/AtLoc-master/logs/Topo_loop_AtLoc_False
 
 echo END OF $SLURM_JOB_ID AT `date`

@@ -9,6 +9,5 @@ AtLoc-master/data/robotcar_camera_models
 AtLoc-master/data/robotcar_symlinks.sh
 AtLoc-master/data/comballaz/*
 AtLoc-master/data/epfl/*
-AtLoc-master/logs/*
 *slurm*.out
 

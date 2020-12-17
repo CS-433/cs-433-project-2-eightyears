@@ -8,6 +8,5 @@ data/RobotCar/*
 data/robotcar_camera_models
 data/robotcar_symlinks.sh
 data/Topo/*
-logs/*
 
 

@@ -81,8 +81,8 @@ if opt.model == 'AtLoc':
         train_set = RobotCar(train=True, **kwargs)
         val_set = RobotCar(train=False, **kwargs)
     elif opt.dataset == 'Topo':
-        train_set = Topo2(train=True, **kwargs)
-        val_set = Topo2(train=False, **kwargs)
+        train_set = Topo(train=True, **kwargs)
+        val_set = Topo(train=False, **kwargs)
     elif opt.dataset == 'comballaz':
         train_set = Topo2(train=True, **kwargs)
         val_set = Topo2(train=False, **kwargs)

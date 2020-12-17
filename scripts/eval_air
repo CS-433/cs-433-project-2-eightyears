@@ -37,7 +37,7 @@ srun python $TEMP/run.py --dataset comballaz --scene air --model AtLoc --data_di
 wait
 srun python $TEMP/eval.py --dataset comballaz --scene air --model AtLoc --gpus 0 --data_dir $TEMP/data --weights /home/$USER/cs433-atloc4topo/AtLoc-master/logs/comballaz_air_AtLoc_False/models/epoch_085.pth.tar --logdir /home/$USER/cs433-atloc4topo/AtLoc-master/logs 
 wait
-srun python $TEMP/run.py --dataset comballaz --scene air --model AtLoc --gpus 0 --data_dir $TEMP/data --weights /home/$USER/cs433-atloc4topo/AtLoc-master/logs/comballaz_air_AtLoc_False/models/epoch_085.pth.tar --final_weights /home/$USER/cs433-atloc4topo/AtLoc-master/logs/comballaz_air_AtLoc_False/models/epoch_085.pth.tar --logdir /home/$USER/cs433-atloc4topo/AtLoc-master/logs
+srun python $TEMP/run.py --dataset comballaz --scene air --model AtLoc --gpus 0 --data_dir $TEMP/data --weights /home/$USER/cs433-atloc4topo/AtLoc-master/logs/comballaz_air_AtLoc_False/models/epoch_000.pth.tar --final_weights /home/$USER/cs433-atloc4topo/AtLoc-master/logs/comballaz_air_AtLoc_False/models/epoch_085.pth.tar --logdir /home/$USER/cs433-atloc4topo/AtLoc-master/logs
 wait
 
 echo END OF $SLURM_JOB_ID AT `date`

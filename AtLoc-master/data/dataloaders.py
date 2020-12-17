@@ -37,6 +37,18 @@ def parse_gps(coords,height):
     Z = ((math.pow(b,2)/math.pow(a,2))*N_lat+height)*math.sin(lat)
     return X,Y,Z
 
+# reads directory, returns dirs if
+def get_dirs(data_path, scene):
+    data_dir = osp.join(data_path + '/comballaz/', scene)
+    if not os.path.isdir(data_dir):
+        data_dir = None
+        print("Not using real data")
+    synth_data_dir = osp.join(data_path + '/comballaz/', scene + '_synthetic')
+    if not os.path.isdir(synth_data_dir):
+        synth_data_dir = None
+        print("Not using synthetic data folder")
+    return data_dir, synth_data_dir
+
 
 class Topo(data.Dataset):
     def __init__(self, scene, data_path, train, transform=None, target_transform=None, mode=0, seed=7, real=False,
@@ -95,8 +107,10 @@ class Topo2(data.Dataset):
         self.target_transform = target_transform
         self.skip_images = skip_images
         np.random.seed(seed)
-        data_dir = osp.join(data_path+'/comballaz/', scene)
-        synth_data_dir = osp.join(data_path + '/comballaz/', scene+'_synthetic')
+
+        data_dir = osp.join(data_path + '/comballaz/', scene)
+
+        synth_data_dir = osp.join(data_path + '/comballaz/', scene + '_synthetic')
         pose = []
         starting_height = 0
         metadata = []
